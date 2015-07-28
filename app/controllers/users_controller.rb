@@ -22,7 +22,10 @@ class UsersController < ApplicationController
           message = "Your password's wrong!"
         else
           message = "You're signed in, #{params[:username]}! :)"
-          cookies[:username] = params[:username]
+          cookies[:username] = {
+            value: params[:username],
+            expires: 100.years.from_now
+          }
           session[:is_signed_in] = true
           session[:user] = User.find_by(username: params[:username])
         end
