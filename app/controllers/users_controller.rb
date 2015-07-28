@@ -10,14 +10,14 @@ class UsersController < ApplicationController
       if !User.find_by(username: params[:username])
         if User.create(
           username: params[:username],
-          password: BCrypt::Password.create(params[:password].strip)
+          password_digest: BCrypt::Password.create(params[:password].strip)
         )
           message = "Your account has been created!"
         else
           message = "Your account couldn't be created. Did you enter a unique username and password?"
         end
       else
-        decoded_hash = BCrypt::Password.new(User.find_by(username: params[:username]).password)
+        decoded_hash = BCrypt::Password.new(User.find_by(username: params[:username]).password_digest)
         if decoded_hash.is_password?(params[:password]) == false
           message = "Your password's wrong!"
         else
