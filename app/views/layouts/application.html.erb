@@ -9,6 +9,11 @@
 <body>
   <h1>Tun.r</h1>
   <nav>
+    <% if session[:is_signed_in] %>
+      <a href="/signout"><%= session[:user]["username"] %>: sign out</a></h2>
+    <% else %>
+      <a href="/signin">Sign in</a>
+    <% end %>
     <a href="/songs">Songs</a>
     <a href="/artists">Artists</a>
   </nav>

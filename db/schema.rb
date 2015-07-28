@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724165157) do
+ActiveRecord::Schema.define(version: 20150728162724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "artists", force: :cascade do |t|
-    t.string "name"
-    t.string "photo_url"
-    t.string "nationality"
+    t.string  "name"
+    t.string  "photo_url"
+    t.string  "nationality"
+    t.integer "user_id"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -30,6 +31,11 @@ ActiveRecord::Schema.define(version: 20150724165157) do
   end
 
   add_index "songs", ["artist_id"], name: "index_songs_on_artist_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+  end
 
   add_foreign_key "songs", "artists"
 end
