@@ -1,7 +1,8 @@
 class ArtistsController < ApplicationController
   # index
   def index
-    @artists = Artist.all
+    @user = User.find(session[:user]["id"])
+    @artists = @user.artists
   end
 
   # new
@@ -11,7 +12,8 @@ class ArtistsController < ApplicationController
 
   # create
   def create
-    @artist = Artist.create!(artist_params)
+    @user = User.find(session[:user]["id"])
+    @artist = @user.artists.create!(artist_params)
     redirect_to (artist_path(@artist))
   end
 
@@ -40,7 +42,7 @@ class ArtistsController < ApplicationController
     redirect_to artists_path
   end
 
-  private 
+  private
   def artist_params
     params.require(:artist).permit(:name, :photo_url, :nationality)
   end
