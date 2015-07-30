@@ -31,7 +31,10 @@ class UsersController < ApplicationController
       message = "Your password's wrong!"
     else
       message = "You're signed in, #{@user.username}!"
-      cookies[:username] = @user.username
+      cookies[:username] = {
+        value: @user.username,
+        expires: 100.years.from_now
+      }
       session[:user] = @user
     end
     flash[:notice] = message
