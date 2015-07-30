@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 
   private
   def authenticate
-    if !session[:is_signed_in]
-      redirect_to "/signin"
+    if !session[:user]
+      redirect_to "/sign_in"
     end
   end
 end

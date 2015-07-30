@@ -1,7 +1,8 @@
 class ArtistsController < ApplicationController
   # index
   def index
-    @artists = User.find(session[:user]["id"]).artists
+    @user = User.find(session[:user]["id"])
+    @artists = @user.artists
   end
 
   # new
@@ -11,8 +12,9 @@ class ArtistsController < ApplicationController
 
   # create
   def create
-    @artist = Artist.create!(artist_params.merge({user_id: session[:user]["id"]}))
-    redirect_to artist_path(@artist)
+    @user = User.find(session[:user]["id"])
+    @artist = @user.artists.create!(artist_params)
+    redirect_to (artist_path(@artist))
   end
 
   #show
